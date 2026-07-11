@@ -219,7 +219,113 @@ fig3 = px.scatter(
     labels={'Probability': 'Automation Probability', 'total_employment': 'Total Employment'}
 )
 st.plotly_chart(fig3, use_container_width=True)
+# ─────────────────────────────────────────────
+# PASTE THIS BLOCK INTO app.py
+# Place it RIGHT AFTER the "Data Insights" section
+# and BEFORE the "About This Tool" section
+# ─────────────────────────────────────────────
 
+st.markdown("---")
+st.markdown("### ⚖️ Career Comparison Mode")
+st.markdown("Compare 2 jobs side-by-side to see which path has lower automation risk.")
+
+col1, col2 = st.columns(2)
+with col1:
+    job_a = st.selectbox("Choose first career:", [''] + sorted(df['Occupation'].tolist()), key='compare_a')
+with col2:
+    job_b = st.selectbox("Choose second career:", [''] + sorted(df['Occupation'].tolist()), key='compare_b')
+
+if job_a and job_b and job_a != job_b:
+    data_a = df[df['Occupation'] == job_a].iloc[0]
+    data_b = df[df['Occupation'] == job_b].iloc[0]
+
+    col1, col2 = st.columns(2)
+
+    with col1:
+        st.markdown(f"#### {job_a}")
+        prob_a = data_a['Probability']
+        if prob_a > 0.66:
+            st.error(f"🔴 High Risk — {prob_a:.1%}")
+        elif prob_a > 0.33:
+            st.warning(f"🟠 Medium Risk — {prob_a:.1%}")
+        else:
+            st.success(f"🟢 Low Risk — {prob_a:.1%}")
+        st.progress(float(prob_a))
+        st.caption(f"Category: {data_a.get('category_name', 'N/A')}")
+
+    with col2:
+        st.markdown(f"#### {job_b}")
+        prob_b = data_b['Probability']
+        if prob_b > 0.66:
+            st.error(f"🔴 High Risk — {prob_b:.1%}")
+        elif prob_b > 0.33:
+            st.warning(f"🟠 Medium Risk — {prob_b:.1%}")
+        else:
+            st.success(f"🟢 Low Risk — {prob_b:.1%}")
+        st.progress(float(prob_b))
+        st.caption(f"Category: {data_b.get('category_name', 'N/A')}")
+
+    # Verdict
+    st.markdown("---")
+    if prob_a < prob_b:
+        st.success(f"✅ **{job_a}** has lower automation risk ({prob_a:.1%} vs {prob_b:.1%})")
+    elif prob_b < prob_a:
+        st.success(f"✅ **{job_b}** has lower automation risk ({prob_b:.1%} vs {prob_a:.1%})")
+    else:
+        st.info("Both jobs have equal automation risk.")
+
+elif job_a and job_b and job_a == job_b:
+    st.warning("Please select two different jobs to compare.")
+
+# ─────────────────────────────────────────────
+# SKILL RECOMMENDATIONS SECTION
+# Paste this block right after Career Comparison
+# ─────────────────────────────────────────────
+
+st.markdown("---")
+st.markdown("### 🛡️ Skills That Reduce Automation Risk")
+st.markdown("These skill areas are consistently associated with lower automation risk across occupations.")
+
+skill_data = {
+    "Critical Thinking & Problem Solving": {
+        "desc": "Analyzing information, evaluating options, and making decisions. Hard for AI to replicate.",
+        "examples": "Engineering, Research, Management, Law",
+        "risk_reduction": "High"
+    },
+    "Social & Emotional Intelligence": {
+        "desc": "Empathy, communication, negotiation, and human interaction.",
+        "examples": "Healthcare, Counseling, Teaching, Social Work",
+        "risk_reduction": "High"
+    },
+    "Creativity & Original Thinking": {
+        "desc": "Generating novel ideas, artistic expression, and innovative design.",
+        "examples": "Arts & Media, Marketing, Architecture, R&D",
+        "risk_reduction": "High"
+    },
+    "Technical & Digital Literacy": {
+        "desc": "Programming, data analysis, systems thinking, and working with AI tools.",
+        "examples": "Software, Data Science, Electrical Engineering, IT",
+        "risk_reduction": "High"
+    },
+    "Adaptability & Lifelong Learning": {
+        "desc": "Willingness to continuously learn new tools, methods, and domains.",
+        "examples": "All fields — cross-cutting skill",
+        "risk_reduction": "Medium–High"
+    },
+    "Physical Dexterity in Complex Environments": {
+        "desc": "Fine motor skills in unpredictable, dynamic settings — still hard for robots.",
+        "examples": "Surgery, Skilled Trades, Emergency Response",
+        "risk_reduction": "Medium"
+    },
+}
+
+cols = st.columns(2)
+for i, (skill, info) in enumerate(skill_data.items()):
+    with cols[i % 2]:
+        with st.expander(f"{'🟢' if info['risk_reduction'] == 'High' else '🟡'} {skill}"):
+            st.markdown(f"**Why it matters:** {info['desc']}")
+            st.markdown(f"**Example careers:** {info['examples']}")
+            st.markdown(f"**Risk reduction:** `{info['risk_reduction']}`")
 # About section
 st.markdown("---")
 st.markdown("### About This Tool")
