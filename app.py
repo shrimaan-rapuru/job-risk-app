@@ -225,7 +225,7 @@ fig2.update_layout(
     yaxis=dict(tickfont=dict(size=12)),
     xaxis=dict(tickfont=dict(size=12))
 )
-st.plotly_chart(fig2, use_container_width=True)
+st.plotly_chart(fig2, width='stretch')
 
 # Chart: Automation risk vs total employment scatter
 fig3 = px.scatter(
@@ -241,7 +241,7 @@ fig3.update_layout(
     font=dict(size=13),
     legend=dict(font=dict(size=12))
 )
-st.plotly_chart(fig3, use_container_width=True)
+st.plotly_chart(fig3, width='stretch')
 
 # Career comparison
 st.markdown("---")
