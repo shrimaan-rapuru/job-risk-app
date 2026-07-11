@@ -8,20 +8,22 @@ from thefuzz import process
 
 # Page config
 st.set_page_config(
-    page_title="AI Job Risk Predictor",
+    page_title="AI Job Impact Predictor",
     page_icon="🤖",
-    layout="centered"
+    layout="wide"
 )
 
 # Custom CSS
 st.markdown("""
 <style>
-    .big-title { font-size: 2.5rem; font-weight: 800; text-align: center;
+    .big-title { font-size: 3.2rem; font-weight: 800; text-align: center;
                  background: linear-gradient(90deg, #00c6ff, #0072ff);
-                 -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    .subtitle { text-align: center; color: #888; font-size: 1.1rem; margin-bottom: 2rem; }
+                 -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+                 margin-bottom: 0.25rem; }
+    .subtitle { text-align: center; color: #555; font-size: 1.15rem; margin-bottom: 2rem; }
     .fact-box { background: #e8f4fd; border-left: 4px solid #0072ff;
                 padding: 12px 16px; border-radius: 8px; margin: 1rem 0; color: #1a1a1a; }
+    input[type="text"]::placeholder { color: #666 !important; }
 </style>
 """, unsafe_allow_html=True)
 
@@ -106,7 +108,8 @@ st.markdown("---")
 
 # Job search with fuzzy matching
 st.markdown("### 🔍 Find Your Career Risk")
-search_input = st.text_input("Type a job title (fuzzy search):", placeholder="e.g. electrical engineer, pharmacist, nurse")
+search_input = st.text_input("Search by job title", placeholder="e.g. Electrical Engineer, Pharmacist, Registered Nurse")
+st.caption("Start typing to find the closest matching occupation from 702 US job categories.")
 
 if search_input:
     matches = process.extract(search_input, df['Occupation'].tolist(), limit=8)
@@ -127,32 +130,32 @@ if selected_job:
     category_name = soc_labels.get(soc_grp, 'Related')
 
     st.markdown("---")
-    st.subheader(f"Results for: **{selected_job}**")
 
-    # Risk label
-    if actual_prob > 0.66:
-        st.error("🔴 High Automation Susceptibility")
-    elif actual_prob > 0.33:
-        st.warning("🟠 Medium Automation Susceptibility")
-    else:
-        st.success("🟢 Low Automation Susceptibility")
+    # Result card
+    rc1, rc2, rc3 = st.columns([2, 1, 1])
+    with rc1:
+        st.markdown(f"## {selected_job}")
+        st.caption(f"Category: {category_name}")
+        if actual_prob > 0.66:
+            st.error("🔴 High Automation Susceptibility")
+        elif actual_prob > 0.33:
+            st.warning("🟠 Medium Automation Susceptibility")
+        else:
+            st.success("🟢 Low Automation Susceptibility")
+        st.progress(float(actual_prob))
+        st.caption(f"Susceptibility score: {actual_prob:.1%} — Frey & Osborne (2017)")
 
-    # Risk meter
-    st.markdown("### 📊 Automation Susceptibility Score")
-    st.progress(float(actual_prob))
-    st.caption(f"Score: {actual_prob:.1%} — Based on the Frey & Osborne (2017) task-based automation study.")
+    with rc2:
+        st.metric("Susceptibility Score", f"{actual_prob:.1%}")
+        st.caption("From the Frey & Osborne (2017) task-based study via O*NET data.")
 
-    st.markdown("---")
-    st.metric("Estimated Automation Susceptibility", f"{actual_prob:.1%}")
-    st.caption("📊 From the Frey & Osborne research study analyzing specific job tasks via O*NET data.")
-
-    # Advice
-    if actual_prob <= 0.33:
-        st.success("✅ This occupation shows low automation susceptibility. Focus on skills that complement AI.")
-    elif actual_prob <= 0.66:
-        st.warning("⚠️ This occupation has moderate susceptibility. Consider developing skills harder to automate.")
-    else:
-        st.error("🚨 This occupation shows high automation susceptibility. Consider related roles with lower risk.")
+    with rc3:
+        if actual_prob <= 0.33:
+            st.success("✅ Strong long-term outlook. Focus on skills that complement AI.")
+        elif actual_prob <= 0.66:
+            st.warning("⚠️ Moderate susceptibility. Develop skills harder to automate.")
+        else:
+            st.error("🚨 High susceptibility. Explore related roles with lower risk.")
 
     # Career recommendations
     if actual_prob > 0.33:
@@ -214,7 +217,13 @@ fig2 = px.bar(
     orientation='h',
     title='Average Automation Susceptibility by Job Category',
     color='Average Automation Susceptibility',
-    color_continuous_scale='RdYlGn_r'
+    color_continuous_scale='RdYlGn_r',
+    height=500
+)
+fig2.update_layout(
+    font=dict(size=13),
+    yaxis=dict(tickfont=dict(size=12)),
+    xaxis=dict(tickfont=dict(size=12))
 )
 st.plotly_chart(fig2, use_container_width=True)
 
@@ -225,7 +234,12 @@ fig3 = px.scatter(
     hover_name='Occupation',
     title='Automation Susceptibility vs Total Employment',
     color_discrete_map={'Low Risk': '#2ecc71', 'Medium Risk': '#e67e22', 'High Risk': '#e74c3c'},
-    labels={'Probability': 'Automation Susceptibility', 'total_employment': 'Total Employment'}
+    labels={'Probability': 'Automation Susceptibility', 'total_employment': 'Total Employment'},
+    height=450
+)
+fig3.update_layout(
+    font=dict(size=13),
+    legend=dict(font=dict(size=12))
 )
 st.plotly_chart(fig3, use_container_width=True)
 
@@ -283,7 +297,7 @@ elif job_a and job_b and job_a == job_b:
 # Skill recommendations
 st.markdown("---")
 st.markdown("### 🛡️ Skills That Reduce Automation Risk")
-st.markdown("These skill areas are consistently associated with lower automation susceptibility across occupations.")
+st.markdown("These skill areas are commonly identified in workforce research as harder to automate or valuable for adapting to AI-driven change.")
 
 skill_data = {
     "Critical Thinking & Problem Solving": {
@@ -356,9 +370,9 @@ Highly specialized roles may not appear individually and should be searched unde
 category.
 
 **Data Sources:**
-- Frey, C.B. & Osborne, M.A. (2017). The Future of Employment. *Technological Forecasting and Social Change.*
-- BLS Occupational Employment and Wage Statistics
-- O*NET Education and Training Database
+- Frey, C.B. & Osborne, M.A. (2017). The Future of Employment. *Technological Forecasting and Social Change*, 114, 254–280.
+- BLS Occupational Employment and Wage Statistics (OEWS), 2023 data release.
+- O*NET Online Database, accessed 2026. National Center for O*NET Development.
 """)
 
 st.info("""
