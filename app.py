@@ -1,12 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
-<title>My Website</title>
-</head>
-<body>
-<h1>Hello World</h1>
-</body>
-</html>import plotly.express as px
+import plotly.express as px
 import streamlit as st
 import pandas as pd
 import joblib
