@@ -17,9 +17,12 @@ st.set_page_config(
 st.markdown("""
 <style>
     .main .block-container {
-        max-width: 960px;
-        margin: 0 auto;
-        padding-top: 1.5rem;
+        max-width: 900px !important;
+        padding-left: 2rem !important;
+        padding-right: 2rem !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+        padding-top: 1.5rem !important;
     }
     .fact-box { background: #e8f4fd; border-left: 4px solid #0072ff;
                 padding: 10px 14px; border-radius: 8px; margin: 0.5rem 0;
