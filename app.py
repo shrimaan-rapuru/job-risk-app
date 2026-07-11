@@ -86,7 +86,7 @@ facts = [
 
 # Header
 st.markdown("<h1 style='text-align:center; color:#0072ff; font-size:3.5rem; font-weight:800; margin-bottom:0;'>AI Job Impact Explorer</h1>", unsafe_allow_html=True)
-st.markdown("<p style='text-align:center; color:#444; font-size:1.2rem; margin-top:0.25rem;'>Explore how AI and automation may affect different careers — based on research from Oxford University</p>", unsafe_allow_html=True)
+st.markdown("<p style='text-align:center; color:#444; font-size:1.2rem; margin-top:0.25rem;'>Explore how AI and automation may affect different careers — using estimates from Oxford researchers Frey and Osborne</p>", unsafe_allow_html=True)
 
 # Did you know fact
 st.markdown(f'<div class="fact-box">💡 <b>Did you know?</b> {random.choice(facts)}</div>', unsafe_allow_html=True)
@@ -310,7 +310,7 @@ elif job_a and job_b and job_a == job_b:
 
 # Skill recommendations
 st.markdown("---")
-st.markdown("### 🛡️ Skills That Reduce Automation Risk")
+st.markdown("### 🛡️ Skills Commonly Considered Harder to Automate")
 st.markdown("These skill areas are commonly identified in workforce research as harder to automate or valuable for adapting to AI-driven change.")
 
 skill_data = {
