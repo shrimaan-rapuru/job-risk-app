@@ -10,19 +10,17 @@ from thefuzz import process
 st.set_page_config(
     page_title="AI Job Impact Explorer",
     page_icon="🤖",
-    layout="wide"
+    layout="centered"
 )
 
 # Custom CSS
 st.markdown("""
 <style>
     .main .block-container {
-        max-width: 900px !important;
-        padding-left: 2rem !important;
-        padding-right: 2rem !important;
-        margin-left: auto !important;
-        margin-right: auto !important;
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
         padding-top: 1.5rem !important;
+        max-width: 860px !important;
     }
     .fact-box { background: #e8f4fd; border-left: 4px solid #0072ff;
                 padding: 10px 14px; border-radius: 8px; margin: 0.5rem 0;
