@@ -30,7 +30,12 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# Model loading disabled - scores come from Frey & Osborne dataset directly
+# Load data and model
+@st.cache_resource
+def load_model():
+    model = joblib.load('job_risk_model.pkl')
+    le = joblib.load('label_encoder.pkl')
+    return model, le
 
 @st.cache_data
 def load_data():
@@ -54,6 +59,7 @@ def load_data():
     })
     return df
 
+model, le = load_model()
 df = load_data()
 
 soc_labels = {
@@ -79,8 +85,8 @@ facts = [
 ]
 
 # Header
-st.markdown('<p class="big-title">🤖 AI Job Impact Predictor</p>', unsafe_allow_html=True)
-st.markdown('<p class="subtitle">Helping students make smarter career decisions in the age of AI</p>', unsafe_allow_html=True)
+st.markdown("<h1 style='text-align:center; color:#0072ff; font-size:3.5rem; font-weight:800; margin-bottom:0;'>🤖 AI Job Impact Predictor</h1>", unsafe_allow_html=True)
+st.markdown("<p style='text-align:center; color:#444; font-size:1.2rem; margin-top:0.25rem;'>Helping students make smarter career decisions in the age of AI</p>", unsafe_allow_html=True)
 
 # Did you know fact
 st.markdown(f'<div class="fact-box">💡 <b>Did you know?</b> {random.choice(facts)}</div>', unsafe_allow_html=True)
