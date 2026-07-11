@@ -10,7 +10,7 @@ from thefuzz import process
 st.set_page_config(
     page_title="AI Job Impact Predictor",
     page_icon="🤖",
-    layout="wide"
+    layout="centered"
 )
 
 # Custom CSS
