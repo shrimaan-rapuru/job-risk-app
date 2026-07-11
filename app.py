@@ -21,8 +21,9 @@ st.markdown("""
                  background: linear-gradient(90deg, #00c6ff, #0072ff);
                  -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
     .subtitle { text-align: center; color: #888; font-size: 1.1rem; margin-bottom: 2rem; }
-    .fact-box { background: #1e2130; border-left: 4px solid #0072ff; 
-                padding: 12px 16px; border-radius: 8px; margin: 1rem 0; }
+    .fact-box { background: #e8f4fd; border-left: 4px solid #0072ff; 
+            padding: 12px 16px; border-radius: 8px; margin: 1rem 0; color: #1a1a1a; }
+                
 </style>
 """, unsafe_allow_html=True)
 
