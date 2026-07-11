@@ -70,12 +70,6 @@ soc_labels = {
     '51': 'Production/Manufacturing', '53': 'Transportation'
 }
 
-facts = [
-    # ══════════════════════════════════════════════
-# FIX 1 — Replace the facts list
-# Find: facts = [
-# Replace the entire list with this:
-# ══════════════════════════════════════════════
 
 facts = [
     "🤖 McKinsey estimates up to 30% of current work tasks could be automated by 2030.",
