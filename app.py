@@ -85,7 +85,10 @@ facts = [
 ]
 
 # Header
-st.markdown("<h1 style='text-align:center; color:#0072ff; font-size:3.5rem; font-weight:800; margin-bottom:0;'>🤖 AI Job Impact Predictor</h1>", unsafe_allow_html=True)
+col_l, col_c, col_r = st.columns([1, 2, 1])
+with col_c:
+    st.image("hero.png", width=320)
+st.markdown("<h1 style='text-align:center; color:#0072ff; font-size:3.5rem; font-weight:800; margin-bottom:0;'>AI Job Impact Predictor</h1>", unsafe_allow_html=True)
 st.markdown("<p style='text-align:center; color:#444; font-size:1.2rem; margin-top:0.25rem;'>Helping students make smarter career decisions in the age of AI</p>", unsafe_allow_html=True)
 
 # Did you know fact
