@@ -35,7 +35,7 @@ def load_model():
 
 @st.cache_data
 def load_data():
-    df = pd.read_csv('automation_data_by_state.csv', encoding='latin-1')
+    df = pd.read_csv('data/automation_data_by_state.csv', encoding='latin-1')
     state_columns = df.columns[3:54].tolist()
     df[state_columns] = df[state_columns].apply(pd.to_numeric, errors='coerce').fillna(0)
     df['soc_group'] = df['SOC'].str[:2]
