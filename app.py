@@ -17,8 +17,7 @@ st.set_page_config(
 st.markdown("""
 <style>
     .big-title { font-size: 3.8rem; font-weight: 800; text-align: center;
-                 background: linear-gradient(90deg, #00c6ff, #0072ff);
-                 -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+                 color: #0072ff;
                  margin-bottom: 0.1rem; line-height: 1.1; }
     .subtitle { text-align: center; color: #444; font-size: 1.2rem;
                 margin-bottom: 0.75rem; font-weight: 400; }
