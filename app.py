@@ -30,12 +30,7 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# Load data and model
-@st.cache_resource
-def load_model():
-    model = joblib.load('job_risk_model.pkl')
-    le = joblib.load('label_encoder.pkl')
-    return model, le
+# Model loading disabled - scores come from Frey & Osborne dataset directly
 
 @st.cache_data
 def load_data():
@@ -59,7 +54,6 @@ def load_data():
     })
     return df
 
-model, le = load_model()
 df = load_data()
 
 soc_labels = {
