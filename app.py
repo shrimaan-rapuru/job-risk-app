@@ -80,7 +80,7 @@ facts = [
     "🎓 Occupations requiring advanced degrees and specialized judgment show lower automation susceptibility.",
     "⚕️ Healthcare roles involving direct patient care are among the most resistant to automation.",
     "💻 Technical roles that build, evaluate, and maintain AI systems tend to have lower automation exposure — though this varies significantly by specialization.",
-]
+
 
 
 # ══════════════════════════════════════════════
