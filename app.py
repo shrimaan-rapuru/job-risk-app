@@ -16,13 +16,17 @@ st.set_page_config(
 # Custom CSS
 st.markdown("""
 <style>
-    .big-title { font-size: 3.2rem; font-weight: 800; text-align: center;
+    .big-title { font-size: 3.8rem; font-weight: 800; text-align: center;
                  background: linear-gradient(90deg, #00c6ff, #0072ff);
                  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-                 margin-bottom: 0.25rem; }
-    .subtitle { text-align: center; color: #555; font-size: 1.15rem; margin-bottom: 2rem; }
+                 margin-bottom: 0.1rem; line-height: 1.1; }
+    .subtitle { text-align: center; color: #444; font-size: 1.2rem;
+                margin-bottom: 0.75rem; font-weight: 400; }
     .fact-box { background: #e8f4fd; border-left: 4px solid #0072ff;
-                padding: 12px 16px; border-radius: 8px; margin: 1rem 0; color: #1a1a1a; }
+                padding: 10px 14px; border-radius: 8px; margin: 0.5rem 0;
+                color: #1a1a1a; font-size: 0.95rem; }
+    .block-container { padding-top: 1.5rem !important; }
+    hr { margin: 0.75rem 0 !important; }
     input[type="text"]::placeholder { color: #666 !important; }
 </style>
 """, unsafe_allow_html=True)
@@ -46,13 +50,13 @@ def load_data():
     )
     df['category_name'] = df['SOC'].str[:2].map({
         '11': 'Management', '13': 'Business & Finance', '15': 'Computer & Math',
-        '17': 'Architecture & Engineering', '19': 'Life & Physical Science',
-        '21': 'Community & Social Service', '23': 'Legal', '25': 'Education',
+        '17': 'Architecture & Eng.', '19': 'Life & Physical Science',
+        '21': 'Community & Social Svc.', '23': 'Legal', '25': 'Education',
         '27': 'Arts & Media', '29': 'Healthcare Practitioners', '31': 'Healthcare Support',
         '33': 'Protective Service', '35': 'Food Preparation', '37': 'Building & Grounds',
         '39': 'Personal Care', '41': 'Sales', '43': 'Office & Admin',
         '45': 'Farming & Fishing', '47': 'Construction', '49': 'Installation & Repair',
-        '51': 'Production/Manufacturing', '53': 'Transportation'
+        '51': 'Production & Mfg.', '53': 'Transportation'
     })
     return df
 
@@ -61,13 +65,13 @@ df = load_data()
 
 soc_labels = {
     '11': 'Management', '13': 'Business & Finance', '15': 'Computer & Math',
-    '17': 'Architecture & Engineering', '19': 'Life & Physical Science',
-    '21': 'Community & Social Service', '23': 'Legal', '25': 'Education',
+    '17': 'Architecture & Eng.', '19': 'Life & Physical Science',
+    '21': 'Community & Social Svc.', '23': 'Legal', '25': 'Education',
     '27': 'Arts & Media', '29': 'Healthcare Practitioners', '31': 'Healthcare Support',
     '33': 'Protective Service', '35': 'Food Preparation', '37': 'Building & Grounds',
     '39': 'Personal Care', '41': 'Sales', '43': 'Office & Admin',
     '45': 'Farming & Fishing', '47': 'Construction', '49': 'Installation & Repair',
-    '51': 'Production/Manufacturing', '53': 'Transportation'
+    '51': 'Production & Mfg.', '53': 'Transportation'
 }
 
 facts = [
@@ -77,7 +81,7 @@ facts = [
     "🔧 Routine, repetitive, and highly structured tasks are easiest for AI to replicate.",
     "🌐 The World Economic Forum projects AI will displace some roles while creating new ones requiring digital and analytical skills.",
     "🎓 Occupations requiring advanced degrees and specialized judgment show lower automation susceptibility.",
-    "⚕️ Healthcare roles involving direct patient care are among the most resistant to automation.",
+    "⚕️ Healthcare roles involving direct patient care often have lower estimated automation susceptibility.",
     "💻 Technical roles that build and maintain AI systems tend to have lower automation exposure — though this varies significantly by specialization.",
 ]
 
@@ -218,7 +222,7 @@ fig2 = px.bar(
     title='Average Automation Susceptibility by Job Category',
     color='Average Automation Susceptibility',
     color_continuous_scale='RdYlGn_r',
-    height=500
+    height=560
 )
 fig2.update_layout(
     font=dict(size=13),
