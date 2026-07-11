@@ -65,9 +65,9 @@ See [`data/DATA_SOURCES.md`](data/DATA_SOURCES.md) for full citation details.
 
 **Dataset breakdown:**
 - **Total occupations:** 702
-- **Low Risk** (probability < 0.3): 245 jobs
-- **Medium Risk** (probability 0.3–0.7): 123 jobs
-- **High Risk** (probability > 0.7): 334 jobs
+- **Low Risk** (probability ≤ 0.33): 245 jobs
+- **Medium Risk** (probability 0.33–0.66): 123 jobs
+- **High Risk** (probability > 0.66): 334 jobs
 
 **Known limitations:**
 - Automation probability scores come from the source dataset, not from a model trained in this project
@@ -86,9 +86,9 @@ automation_data_by_state.csv → Pandas cleaning → Risk tier mapping → Strea
 ### Risk Classification Logic
 1. Each occupation has a raw automation probability score (0.0–1.0) from the dataset
 2. Scores are mapped to three risk tiers:
-   - Low: probability < 0.3
-   - Medium: probability 0.3–0.7
-   - High: probability > 0.7
+   - Low: probability ≤ 0.33
+   - Medium: probability 0.33–0.66
+   - High: probability > 0.66
 3. Plain-language contextual interpretations are generated based on risk tier and occupational SOC group
 4. Career alternatives and skill recommendations are derived by filtering same-category occupations with lower risk scores
 
