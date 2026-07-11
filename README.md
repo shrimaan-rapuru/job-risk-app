@@ -28,8 +28,6 @@
 ![Career Comparison](assets/comparison.jpg)
 > *Side-by-side view comparing the automation risk of two selected occupations.*
 
-> 💡 **To add screenshots:** Save images to an `assets/` folder in this repo named as above — they will render automatically.
-
 ---
 
 ## Overview
@@ -48,7 +46,7 @@ Developed during my internship at **ThinkNeuro, LLC** as an independent data sci
 - **Plain-Language Interpretations** — Contextual explanations of automation risk based on occupational category and risk level
 - **Career Comparison Mode** — Side-by-side risk comparison of any two occupations
 - **Safer Career Alternatives** — Suggests lower-risk career paths based on selected job category
-- **Skill Recommendations** — Identifies skills associated with lower automation risk roles
+- **Workforce Skill Guidance** — Highlights skill areas commonly identified in research as harder to automate or useful for adapting to AI-driven change
 - **Interactive Data Visualizations**
   - Average automation risk by job category (color-coded bar chart)
   - Automation risk vs. total employment (scatter plot)
@@ -122,12 +120,11 @@ job-risk-app/
 ├── app.py                          # Main Streamlit application
 ├── README.md
 ├── requirements.txt
+├── job_risk_model.pkl              # Trained classifier (scikit-learn 1.6.1)
+├── label_encoder.pkl               # SOC group encoder
 ├── data/
 │   ├── automation_data_by_state.csv  # Primary dataset
 │   └── DATA_SOURCES.md               # Full data citations
-├── models/
-│   ├── job_risk_model.pkl            # Trained classifier
-│   └── label_encoder.pkl             # SOC group encoder
 ├── assets/
 │   ├── dashboard.jpg
 │   ├── risk_by_category.jpg
@@ -162,7 +159,6 @@ streamlit run app.py
 - [ ] **Personalized risk profile** — Let users input specific skills to generate a custom score beyond job title alone
 - [ ] **Historical trend view** — Show how automation risk has shifted over time using multi-year data
 - [ ] **College major mapping** — Map occupations to common college majors for career-entry risk awareness
-- [ ] **Pin all dependency versions** — Ensure fully reproducible installs
 
 ---
 
